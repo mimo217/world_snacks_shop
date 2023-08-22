@@ -1,6 +1,6 @@
 import styles from './OrderHistoryPage.module.scss';
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import * as ordersAPI from '../../utilities/orders-api';
 import Logo from '../../components/Logo/Logo';
 import UserLogOut from '../../components/UserLogOut/UserLogOut';
@@ -8,43 +8,64 @@ import OrderList from '../../components/OrderList/OrderList';
 import OrderDetail from '../../components/OrderDetail/OrderDetail';
 
 export default function OrderHistoryPage({ user, setUser }) {
-  /*--- State --- */
   const [orders, setOrders] = useState([]);
   const [activeOrder, setActiveOrder] = useState(null);
+  const [cart, setCart] = useState(null);
+  const navigate = useNavigate();
 
-  /*--- Side Effects --- */
   useEffect(function () {
-    // Load previous orders (paid)
     async function fetchOrderHistory() {
       const orders = await ordersAPI.getOrderHistory();
+      const cart = await ordersAPI.getCart();
       setOrders(orders);
-      // If no orders, activeOrder will be set to null below
+      setCart(cart);
       setActiveOrder(orders[0] || null);
     }
     fetchOrderHistory();
   }, []);
 
-  /*--- Event Handlers --- */
   function handleSelectOrder(order) {
     setActiveOrder(order);
   }
 
-  /*--- Rendered UI --- */
+  async function handleChangeQty(itemId, newQty) {
+    if (newQty < 0) {
+      newQty = 0;
+    }
+
+    const updatedCart = await ordersAPI.setItemQtyInCart(activeOrder._id, itemId, newQty); // Use activeOrder's _id
+    setCart(updatedCart);
+  }
+
+  async function handleCheckout() {
+    await ordersAPI.checkout();
+    navigate('/orders');
+  }
+
   return (
     <main className={styles.OrderHistoryPage}>
-      <aside className={styles.aside}>
+       <div className={styles.TopLine}>
         <Logo />
+        <h1 className={styles.Title}>Taste Trekker</h1>
         <Link to="/orders/new" className="button btn-sm">NEW ORDER</Link>
+        <Link to="/orders" className="button btn-sm">PREVIOUS ORDERS</Link>
         <UserLogOut user={user} setUser={setUser} />
-      </aside>
-      <OrderList
-        orders={orders}
-        activeOrder={activeOrder}
-        handleSelectOrder={handleSelectOrder}
-      />
-      <OrderDetail
-        order={activeOrder}
-      />
+      </div>
+      <div className={styles.OrderContent}>
+        <OrderList
+          orders={orders}
+          activeOrder={activeOrder}
+          handleSelectOrder={handleSelectOrder}
+        />
+        {activeOrder && (
+          <OrderDetail
+            order={activeOrder}
+            cart={cart}
+            handleChangeQty={handleChangeQty}
+            handleCheckout={handleCheckout}
+          />
+        )}
+      </div>
     </main>
   );
 }

@@ -1,15 +1,51 @@
 .AuthPage {
-    height: 100%;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    background-color: var(--white);
-    border-radius: 2vmin;
-  }
-  
-  .AuthPage h3 {
-    margin-top: 4vmin;
-    text-align: center;
-    color: var(--text-light);
-    cursor: pointer;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  padding-top: 5rem;
+}
+
+.BackgroundImage {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.Image {
+  object-fit: scale-down;
+  width: 100%;
+  height: 100%;
+}
+
+.TopRightContainer {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 1rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: none;
+}
+
+.Title {
+  font-family:'Franklin Gothic Medium';
+  font-size: 2rem;
+  color: var(--text-light);
+  margin: 0;
+}
+
+.AuthContainer {
+  padding: 3.0rem;
+  border-radius: 2vmin;
+  backdrop-filter: blur(1px);
+  margin-top: 3rem;
+  width: 70%;
+  max-width: 400px;
+  text-align: center;
+}
+

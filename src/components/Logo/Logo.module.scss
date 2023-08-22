@@ -1,6 +1,7 @@
 .Logo {
-    height: 12vmin;
-    width: 12vmin;
+    position: relative;
+    height: 8vmin;
+    width: 8vmin;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -9,5 +10,14 @@
     background-color: var(--orange);
     color: var(--tan-1);
     font-size: 2.7vmin;
-    border: .6vmin solid var(--tan-2);
+    
+    .LogoImage {
+      position: absolute;
+      top: 0; 
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
     }
+  }
+  

@@ -1,13 +1,13 @@
 /* CSS Custom Properties */
 :root {
     --white: #FFFFFF;
-    --tan-1: #FBF9F6;
-    --tan-2: #E7E2DD;
-    --tan-3: #E2D9D1;
-    --tan-4: #D3C1AE;
+    --tan-1: #e3934d;
+    --tan-2: #FFFFFF;
+    --tan-3: pink;
+    --teal-4: #20B2AA;
     --orange: #F67F00;
     --text-light: #968c84;
-    --text-dark: #615954;
+    --text-dark: #040403;
   }
   
   *, *:before, *:after {
@@ -21,7 +21,7 @@
     sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: var(--tan-4);
+    background-color: var(--teal-4);
     padding: 2vmin;
     height: 100vh;
   }
@@ -49,8 +49,9 @@
   
   .flex-ctr-ctr {
     display: flex;
-    justify-content: center;
+    justify-content: flex-center;
     align-items: center;
+    height: 100vh
   }
   
   .flex-col {
@@ -69,9 +70,9 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    background-color: var(--tan-1);
-    color: var(--text-dark);
-    border: .1vmin solid var(--tan-3);
+    background-color: var(--white);
+    color: var(--teal-4);
+    border: .1vmin solid var(--tan-2);
     border-radius: 1vmin;
     padding: .6vmin;
     text-align: center;
@@ -80,9 +81,14 @@
   
   .form-container {
     padding: 3vmin;
-    background-color: var(--tan-1);
-    border: .1vmin solid var(--tan-3);
+    background-color: var(--tan-2);
+    border: .1vmin solid var(--tan-2);
     border-radius: 1vmin;
+    height: 100%vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
   }
   
   p.error-message {
@@ -91,7 +97,8 @@
   }
   
   form {
-    display: grid;
+    display: flex;
+    flex-direction: column;
     grid-template-columns: 1fr 3fr;
     gap: 1.25vmin;
     color: var(--text-light);
@@ -120,7 +127,7 @@
   button, a.button {
     margin: 1vmin;
     padding: 1vmin;
-    color: var(--white);
+    color: var(--teal-4);
     background-color: var(--orange);
     font-size: 2vmin;
     font-weight: bold;
